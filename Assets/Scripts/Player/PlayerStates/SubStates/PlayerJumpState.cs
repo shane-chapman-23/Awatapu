@@ -16,4 +16,11 @@ public class PlayerJumpState : PlayerAbilityState
         player.SetVelocityY(playerData.jumpVelocity);
         isAbilityDone = true;
     }
+
+    // public override void LogicUpdate()
+    // {
+    //     base.LogicUpdate();
+
+    //     if()
+    // }
 }

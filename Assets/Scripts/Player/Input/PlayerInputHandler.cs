@@ -9,6 +9,15 @@ public class PlayerInputHandler : MonoBehaviour
     public int NormInputX { get; private set; }
     public int NormInputY { get; private set; }
     public bool JumpInput { get; private set; }
+
+    private float inputHoldTime = 0.2f;
+
+    private float jumpInputStartTime;
+
+    private void Update()
+    {
+        CheckJumpInputHoldTime();
+    }
     
     public void OnMoveInput(InputAction.CallbackContext context)
     {
@@ -24,10 +33,19 @@ public class PlayerInputHandler : MonoBehaviour
         if(context.started)
         {
             JumpInput = true;
+            jumpInputStartTime = Time.time;
         }
     }
 
     //once JumpInput is used set it back to false;
     public void UseJumpInput() => JumpInput = false;
     
+    //jump input held as true until use or until time runs out; allowing player to press jump just before landing and the jump is still registered.
+    private void CheckJumpInputHoldTime()
+    {
+        if(Time.time >= jumpInputStartTime + inputHoldTime)
+        {
+            JumpInput = false;
+        }
+    }
 }

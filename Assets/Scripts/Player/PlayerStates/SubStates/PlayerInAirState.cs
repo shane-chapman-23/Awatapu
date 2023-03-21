@@ -6,6 +6,7 @@ public class PlayerInAirState : PlayerState
 {
     private int xInput;
     private bool isGrounded;
+    private bool coyoteTime;
     
 
     public PlayerInAirState(Player player, PlayerStateMachine stateMachine, PlayerData playerData, string animBoolName) : base(player, stateMachine, playerData, animBoolName)
@@ -34,6 +35,8 @@ public class PlayerInAirState : PlayerState
     {
         base.LogicUpdate();
 
+        CheckCoyoteTime();
+
         xInput = player.InputHandler.NormInputX;
 
         if(isGrounded && player.CurrentVelocity.y < 0.01f)
@@ -54,4 +57,14 @@ public class PlayerInAirState : PlayerState
     {
         base.PhysicsUpdate();
     }
+
+    private void CheckCoyoteTime()
+    {
+        if(coyoteTime = true && Time.time > startTime + playerData.coyoteTime)
+        {
+            coyoteTime = false;
+        }
+    }
+
+    public void StartCoyoteTime() => coyoteTime = true;
 }
