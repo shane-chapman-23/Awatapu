@@ -36,7 +36,7 @@ public class PlayerState
         player.Anim.SetBool(animBoolName, true);
         //Record the start time of the state
         startTime = Time.time;
-        //Set isAnimation to false since the animation has just started
+        //Set isAnimationFinished to false since the animation has just started
         isAnimationFinished = false;
     }
 

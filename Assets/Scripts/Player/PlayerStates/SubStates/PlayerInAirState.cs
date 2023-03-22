@@ -5,10 +5,12 @@ using UnityEngine;
 public class PlayerInAirState : PlayerState
 {
     private int xInput;
+
     private bool isGrounded;
     private bool coyoteTime;
     private bool jumpInput;
     private bool jumpInputHeld;
+    private bool doubleJumpInput;
     
 
     public PlayerInAirState(Player player, PlayerStateMachine stateMachine, PlayerData playerData, string animBoolName) : base(player, stateMachine, playerData, animBoolName)
