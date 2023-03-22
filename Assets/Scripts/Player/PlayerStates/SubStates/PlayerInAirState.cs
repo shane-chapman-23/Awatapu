@@ -7,6 +7,7 @@ public class PlayerInAirState : PlayerState
     private int xInput;
     private bool isGrounded;
     private bool coyoteTime;
+    private bool jumpInput;
     private bool jumpInputHeld;
     
 
@@ -40,11 +41,16 @@ public class PlayerInAirState : PlayerState
         JumpModifier();
 
         xInput = player.InputHandler.NormInputX;
+        jumpInput = player.InputHandler.JumpInput;
         jumpInputHeld = player.InputHandler.JumpInputHeld;
 
         if(isGrounded && player.CurrentVelocity.y < 0.01f)
         {
             stateMachine.ChangeState(player.LandState);
+        }
+        else if(jumpInput && player.JumpState.CanJump())
+        {
+            stateMachine.ChangeState(player.JumpState);
         }
         else
         {

@@ -24,6 +24,8 @@ public class PlayerGroundedState : PlayerState
     public override void Enter()
     {
         base.Enter();
+
+        player.JumpState.ResetAmountOfJumpsLeft();
     }
 
     public override void Exit()
@@ -38,7 +40,7 @@ public class PlayerGroundedState : PlayerState
         xInput = player.InputHandler.NormInputX;
         jumpInput = player.InputHandler.JumpInput;
 
-        if(jumpInput)
+        if(jumpInput && player.JumpState.CanJump())
         {
             //Setting JumpInput to false after use
             player.InputHandler.UseJumpInput();
@@ -46,6 +48,8 @@ public class PlayerGroundedState : PlayerState
         } 
         else if(!isGrounded)
         {
+            player.JumpState.DecreaseAmountOfJumpsLeft();
+            stateMachine.ChangeState(player.InAirState);
             player.InAirState.StartCoyoteTime();
         }
     }
