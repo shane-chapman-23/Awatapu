@@ -9,7 +9,8 @@ public class PlayerInputHandler : MonoBehaviour
     public int NormInputX { get; private set; }
     public int NormInputY { get; private set; }
     public bool JumpInput { get; private set; }
-    
+    public bool JumpInputHeld { get; private set; }
+
     //the amount of time the player has after hitting the jump button before the JumpInput variable is set to false;
     private float inputHoldTime = 0.2f;
     //the time when the player first presses the jump button
@@ -18,6 +19,8 @@ public class PlayerInputHandler : MonoBehaviour
     private void Update()
     {
         CheckJumpInputHoldTime();
+
+        Debug.Log(JumpInputHeld);
     }
     //Method is called whenever there is new movement input from the player
     public void OnMoveInput(InputAction.CallbackContext context)
@@ -37,14 +40,20 @@ public class PlayerInputHandler : MonoBehaviour
         if(context.started)
         {
             JumpInput = true;
+            JumpInputHeld = true;
             jumpInputStartTime = Time.time;
+        } 
+        //If player releases jump button, JumpInputHeld variable set to false
+        else if(context.canceled)
+        {
+            JumpInputHeld = false;
         }
     }
 
     //once JumpInput is used set it back to false;
     public void UseJumpInput() => JumpInput = false;
     
-    //Jump input held as true until use or until time runs out
+    //Jump input is true until use or until time runs out
     //Allowing player to press jump just before landing and the jump is still registered.
     private void CheckJumpInputHoldTime()
     {

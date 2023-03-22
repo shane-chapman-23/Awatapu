@@ -7,6 +7,7 @@ public class PlayerInAirState : PlayerState
     private int xInput;
     private bool isGrounded;
     private bool coyoteTime;
+    private bool jumpInputHeld;
     
 
     public PlayerInAirState(Player player, PlayerStateMachine stateMachine, PlayerData playerData, string animBoolName) : base(player, stateMachine, playerData, animBoolName)
@@ -36,8 +37,10 @@ public class PlayerInAirState : PlayerState
         base.LogicUpdate();
 
         CheckCoyoteTime();
+        JumpModifier();
 
         xInput = player.InputHandler.NormInputX;
+        jumpInputHeld = player.InputHandler.JumpInputHeld;
 
         if(isGrounded && player.CurrentVelocity.y < 0.01f)
         {
@@ -67,4 +70,24 @@ public class PlayerInAirState : PlayerState
     }
 
     public void StartCoyoteTime() => coyoteTime = true;
+
+    //Modify player jump.
+    //Allows player to control jump height while hoilding jump button
+    //increase the gravity when player is falling
+    private void JumpModifier()
+    {
+        //Checking if player is not grounded, if jump is not held and if velocity.y is more than 0.01f
+        //Setting Velocity.y to 0 if conditions met
+        if(!isGrounded && !jumpInputHeld && player.CurrentVelocity.y > 0.01f)
+        {
+            player.SetVelocityY(0f);
+        }
+
+        //If player is falling
+        //Increase player gravity
+        if(player.CurrentVelocity.y < 0)
+        {
+            player.FallMultiplier();
+        }
+    }
 }
