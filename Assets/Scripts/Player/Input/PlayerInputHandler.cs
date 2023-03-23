@@ -19,8 +19,6 @@ public class PlayerInputHandler : MonoBehaviour
     private void Update()
     {
         CheckJumpInputHoldTime();
-
-        Debug.Log(JumpInputHeld);
     }
     //Method is called whenever there is new movement input from the player
     public void OnMoveInput(InputAction.CallbackContext context)
