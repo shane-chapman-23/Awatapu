@@ -39,7 +39,6 @@ public class PlayerState
         //Set isAnimationFinished to false since the animation has just started
         isAnimationFinished = false;
 
-        Debug.Log(animBoolName);
     }
 
     //Called when the state is exited
