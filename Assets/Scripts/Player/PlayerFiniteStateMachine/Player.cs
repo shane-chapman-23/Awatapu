@@ -79,6 +79,7 @@ public class Player : MonoBehaviour
     {
         //Update the physics of the current state
         StateMachine.CurrentState.PhysicsUpdate();
+
     }
     #endregion
 
@@ -117,6 +118,7 @@ public class Player : MonoBehaviour
             Flip();
         }
     }
+
     #endregion
 
     #region Other Functions

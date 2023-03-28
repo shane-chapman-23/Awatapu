@@ -11,7 +11,6 @@ public class PlayerInAirState : PlayerState
     private bool jumpInput;
     private bool jumpInputHeld;
     
-
     public PlayerInAirState(Player player, PlayerStateMachine stateMachine, PlayerData playerData, string animBoolName) : base(player, stateMachine, playerData, animBoolName)
     {
 
@@ -40,17 +39,38 @@ public class PlayerInAirState : PlayerState
 
         CheckCoyoteTime();
         JumpModifier();
+        PostInAirStateChange();
 
         xInput = player.InputHandler.NormInputX;
         jumpInput = player.InputHandler.JumpInput;
         jumpInputHeld = player.InputHandler.JumpInputHeld;
 
+
+
+        if(isAnimationFinished)
+        {
+            player.Anim.SetBool("doubleJump", false);
+        }
+    }
+
+    public override void PhysicsUpdate()
+    {
+        base.PhysicsUpdate();
+    }
+
+    private void PostInAirStateChange()
+    {
         if(isGrounded && player.CurrentVelocity.y < 0.01f)
         {
             stateMachine.ChangeState(player.LandState);
         }
         else if(jumpInput && player.JumpState.CanJump())
         {
+            if(player.JumpState.amountOfJumpsLeft == 1)
+            {
+                player.Anim.SetBool("doubleJump", true);
+            }
+
             stateMachine.ChangeState(player.JumpState);
         }
         else
@@ -61,11 +81,6 @@ public class PlayerInAirState : PlayerState
             player.Anim.SetFloat("yVelocity", player.CurrentVelocity.y);
             player.Anim.SetFloat("xVelocity", Mathf.Abs(player.CurrentVelocity.x));
         }
-    }
-
-    public override void PhysicsUpdate()
-    {
-        base.PhysicsUpdate();
     }
 
     private void CheckCoyoteTime()
