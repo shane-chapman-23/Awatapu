@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   doubleJumpUnlocked: 1
   movementVelocity: 10
-  jumpVelocity: 15
-  amountOfJumpsLeft: 2
+  jumpVelocity: 12
+  amountOfJumpsLeft: 1
   coyoteTime: 0.2
   fallMultiplier: 2.5
   groundCheckRadius: 0.3
