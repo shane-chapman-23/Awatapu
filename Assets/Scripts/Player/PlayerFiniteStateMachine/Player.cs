@@ -124,7 +124,7 @@ public class Player : MonoBehaviour
     #region Other Functions
 
     //Modifies player gravity when falling, making the player fall faster.
-    public void FallMultiplier() => CurrentVelocity += Vector2.up * Physics2D.gravity.y * (playerData.fallMultiplier - 1) * Time.deltaTime;
+    public void FallMultiplier() => CurrentVelocity += Vector2.up * Physics2D.gravity.y * (playerData.fallMultiplier) * Time.deltaTime;
 
     private void AnimationTrigger() => StateMachine.CurrentState.AnimationTrigger(); //Called when an animation event is triggered
 
