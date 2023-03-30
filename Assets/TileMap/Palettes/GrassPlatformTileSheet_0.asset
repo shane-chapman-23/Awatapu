@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: TestTile
+  m_Name: GrassPlatformTileSheet_0
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: 21300000, guid: a1aba55cd6a6744c180d346bd48d68f0, type: 3}
+  m_Sprite: {fileID: -2100941747, guid: 728b9d01f30504c578a36627609d73d0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1
