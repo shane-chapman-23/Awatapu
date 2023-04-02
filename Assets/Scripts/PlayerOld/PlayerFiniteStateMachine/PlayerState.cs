@@ -13,6 +13,8 @@ public class PlayerState
     protected PlayerData playerData;
     //Whether the animation has finished
     protected bool isAnimationFinished;
+    //Checking if state is exited
+    protected bool isExitingState;
     //The time at which the state was entered
     protected float startTime;
     //The name of the boolean parameter in the animator that corresponds to the states animation
@@ -38,6 +40,8 @@ public class PlayerState
         startTime = Time.time;
         //Set isAnimationFinished to false since the animation has just started
         isAnimationFinished = false;
+        //isExitingState is false because state has been entered
+        isExitingState = false;
 
     }
 
@@ -46,6 +50,8 @@ public class PlayerState
     {
         //Setting the animation boolean to false on exit
         player.Anim.SetBool(animBoolName, false);
+        //Exiting State is True
+        isExitingState = true;
     }
 
     //Called every frame to update the logic for the state

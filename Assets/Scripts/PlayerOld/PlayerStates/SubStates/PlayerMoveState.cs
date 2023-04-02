@@ -33,7 +33,7 @@ public class PlayerMoveState : PlayerGroundedState
         player.SetVelocityX(playerData.movementVelocity * xInput);
 
         //changing the state to "IdleState" when no x input is heard.
-        if(xInput == 0)
+        if(xInput == 0 && !isExitingState)
         {
             stateMachine.ChangeState(player.IdleState);
         }

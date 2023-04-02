@@ -30,7 +30,7 @@ public class PlayerIdleState : PlayerGroundedState
         base.LogicUpdate();
         
         //Changing the state to "MoveState" when the player pushes either the Left or Right keys, which return either a -1 or 1 value.
-        if(xInput != 0)
+        if(xInput != 0 && !isExitingState)
         {
             stateMachine.ChangeState(player.MoveState);
         }
