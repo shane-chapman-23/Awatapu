@@ -5,8 +5,8 @@ using UnityEngine;
 public class PlayerInAirState : PlayerState
 {
     private int xInput;
-
     private bool isGrounded;
+    private bool isTouchingWall;
     private bool coyoteTime;
     private bool jumpInput;
     private bool jumpInputHeld;
@@ -21,6 +21,7 @@ public class PlayerInAirState : PlayerState
         base.DoChecks();
 
         isGrounded = player.CheckIfGrounded();
+        isTouchingWall = player.CheckIfTouchingWall();
     }
 
     public override void Enter()
@@ -64,14 +65,20 @@ public class PlayerInAirState : PlayerState
         {
             stateMachine.ChangeState(player.LandState);
         }
-        else if(jumpInput && player.JumpState.CanJump())
+        else if(jumpInput && player.JumpState.CanJump() && playerData.doubleJumpUnlocked)
         {
             if(player.JumpState.amountOfJumpsLeft == 1)
             {
                 player.Anim.SetBool("doubleJump", true);
             }
 
+            player.InputHandler.UseJumpInput();
             stateMachine.ChangeState(player.JumpState);
+            
+        }
+        else if(isTouchingWall && xInput == player.FacingDirection && player.CurrentVelocity.y <= 0)
+        {
+            stateMachine.ChangeState(player.WallSlideState);
         }
         else
         {

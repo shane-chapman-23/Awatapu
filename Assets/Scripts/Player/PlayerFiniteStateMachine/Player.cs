@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
     public PlayerJumpState JumpState { get; private set; }
     public PlayerInAirState InAirState { get; private set; }
     public PlayerLandState LandState { get; private set; }
+    public PlayerWallSlideState WallSlideState { get; private set; }
     //Player data for reading and configuring player attributes
     [SerializeField]
     private PlayerData playerData;
@@ -31,6 +32,9 @@ public class Player : MonoBehaviour
     //Ground check transform for checking if the player is grounded
     [SerializeField]
     private Transform groundCheck;
+    //Wall check transform for checking if the player is touching a wall
+    [SerializeField]
+    private Transform wallCheck;
     #endregion
 
     #region Other Variables
@@ -53,6 +57,7 @@ public class Player : MonoBehaviour
         JumpState = new PlayerJumpState(this, StateMachine, playerData, "inAir");
         InAirState = new PlayerInAirState(this, StateMachine, playerData, "inAir");
         LandState = new PlayerLandState(this, StateMachine, playerData, "land");
+        WallSlideState = new PlayerWallSlideState(this, StateMachine, playerData, "wallSlide");
     }
 
     private void Start()
@@ -107,6 +112,11 @@ public class Player : MonoBehaviour
     {
         //Checking if the player is grounded using the groundCheck position, groundCheckRadius and defining what ground is
         return Physics2D.OverlapCircle(groundCheck.position, playerData.groundCheckRadius, playerData.whatIsGround);
+    }
+
+    public bool CheckIfTouchingWall()
+    {
+        return Physics2D.Raycast(wallCheck.position, Vector2.right * FacingDirection, playerData.wallCheckDistance, playerData.whatIsGround);
     }
 
     public void CheckIfShouldFlip(int xInput)
